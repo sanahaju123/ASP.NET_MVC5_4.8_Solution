@@ -25,14 +25,14 @@ namespace FitnessTrackerApp.Controllers
         // GET: FitnessTracker
         public ActionResult Index()
         {
-            var workouts = from work in (IEnumerable<Workout>)_Repository.GetWorkouts()
+            var workouts = from work in _Repository.GetWorkouts()
                         select work;
             return View(workouts);
         }
 
-        public async Task<ViewResult> Details(int id)
+        public ViewResult Details(int id)
         {
-            Workout workout =  await _Repository.GetWorkoutByID(id);
+            Workout workout =   _Repository.GetWorkoutByID(id);
             return View(workout);
         }
 
@@ -60,9 +60,9 @@ namespace FitnessTrackerApp.Controllers
             return View(workout);
         }
 
-        public async Task<ActionResult> EditAsync(int id)
+        public ActionResult EditAsync(int id)
         {
-            Workout workout = await _Repository.GetWorkoutByID(id);
+            Workout workout =  _Repository.GetWorkoutByID(id);
             return View(workout);
         }
         [HttpPost]
@@ -84,21 +84,22 @@ namespace FitnessTrackerApp.Controllers
             return View(workout);
         }
 
-        public async Task<ActionResult> Delete(int id, bool? saveChangesError)
+        public ActionResult Delete(int id, bool? saveChangesError)
         {
             if (saveChangesError.GetValueOrDefault())
             {
                 ViewBag.ErrorMessage = "Unable to save changes. Try again, and if the problem persists see your system administrator.";
             }
-            Workout workout = await _Repository.GetWorkoutByID(id);
+            Workout workout =  _Repository.GetWorkoutByID(id);
             return View(workout);
         }
+
         [HttpPost, ActionName("Delete")]
-        public async Task<ActionResult> DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id)
         {
             try
             {
-                Workout workout = await _Repository.GetWorkoutByID(id);
+                Workout workout =  _Repository.GetWorkoutByID(id);
                 _Repository.DeleteWorkout(id);
                 _Repository.Save();
             }

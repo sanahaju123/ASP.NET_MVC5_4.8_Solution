@@ -13,13 +13,13 @@ namespace FitnessTrackerApp.DAL.Repository
             this._repo = repo;
         }
 
-        public async Task<int> DeleteWorkout(int workoutId)
+        public int DeleteWorkout(int workoutId)
         {
             var res= _repo.DeleteWorkout(workoutId);
-            return res.Id;
+            return res;
         }
 
-        public Task<Workout> GetWorkoutByID(int workoutId)
+        public Workout GetWorkoutByID(int workoutId)
         {
             return _repo.GetWorkoutByID(workoutId);
         }
@@ -29,17 +29,17 @@ namespace FitnessTrackerApp.DAL.Repository
         }
 
 
-        Task<IEnumerable<Workout>> IFitnessTrackerInterface.GetWorkouts()
+        IEnumerable<Workout> IFitnessTrackerInterface.GetWorkouts()
         {
-            return (Task<IEnumerable<Workout>>)(IEnumerable<Workout>)_repo.GetWorkouts();
+            return _repo.GetWorkouts();
         }
 
-        Task<Workout> IFitnessTrackerInterface.InsertWorkout(Workout workout)
+        Workout IFitnessTrackerInterface.InsertWorkout(Workout workout)
         {
             return _repo.InsertWorkout(workout);
         }
 
-        Task<bool> IFitnessTrackerInterface.UpdateWorkout(Workout workout)
+        bool IFitnessTrackerInterface.UpdateWorkout(Workout workout)
         {
             return _repo.UpdateWorkout(workout);
         }

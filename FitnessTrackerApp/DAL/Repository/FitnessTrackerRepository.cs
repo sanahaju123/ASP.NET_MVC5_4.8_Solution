@@ -16,25 +16,25 @@ namespace FitnessTrackerApp.DAL.Repository
         {
             this._context = Context;
         }
-        public async Task<IEnumerable<Workout>> GetWorkouts()
+        public IEnumerable<Workout> GetWorkouts()
         {
              return _context.Workouts.ToList();
         }
-        public async Task<Workout> GetWorkoutByID(int id)
+        public Workout GetWorkoutByID(int id)
         {
             return _context.Workouts.Find(id);
         }
-        public async Task<Workout> InsertWorkout(Workout workout)
+        public Workout InsertWorkout(Workout workout)
         {
             return _context.Workouts.Add(workout);
         }
-        public async Task<int> DeleteWorkout(int workoutID)
+        public int DeleteWorkout(int workoutID)
         {
             Workout workout = _context.Workouts.Find(workoutID);
             var res= _context.Workouts.Remove(workout);
             return res.Id;
         }
-        public async Task<bool> UpdateWorkout(Workout workout)
+        public bool UpdateWorkout(Workout workout)
         {
             var res= _context.Entry(workout).State = EntityState.Modified;
             return res.Equals("workout");
